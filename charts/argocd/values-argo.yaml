@@ -20,4 +20,4 @@ server:
     ingressClassName: nginx
     tls: true
 image:
-  tag: 3bf975
+  tag: 797c3f

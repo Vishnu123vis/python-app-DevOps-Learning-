@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: vishnu123vis/python-app
   pullPolicy: IfNotPresent
-  tag: 3bf975
+  tag: 797c3f
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 # This is to override the chart name.
