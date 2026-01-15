@@ -33,10 +33,9 @@ jobs:
     needs: ci
     runs-on: self-hosted
     steps:
-    
-     - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-     - name: modify values filesx
+      - name: modify values files
         shell: bash
         run: |
           echo ${{ needs.ci.outputs.commit_id }}
