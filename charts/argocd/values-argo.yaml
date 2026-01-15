@@ -1,24 +1,17 @@
 redis-ha:
   enabled: false
-
 controller:
   replicas: 1
-
 server:
   replicas: 1
-
 repoServer:
   replicas: 1
-
 applicationSet:
   replicas: 1
-
 global:
   domain: argocd.test.com
-
 certificate:
   enabled: true
-
 server:
   ingress:
     annotations:
@@ -26,3 +19,5 @@ server:
     enabled: true
     ingressClassName: nginx
     tls: true
+image:
+  tag: c67a18
