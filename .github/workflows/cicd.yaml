@@ -48,7 +48,7 @@ jobs:
           yq -i ".image.tag = \"${{ needs.ci.outputs.commit_id }}\"" charts/argocd/values-argo.yaml
 
       - name: Commit changes
-        uses: Endbug/add-and-commmit@v9
+        uses: Endbug/add-and-commit@v9
         with:
           message: "Update image tag to ${{ needs.ci.outputs.commit_id }}"
 
