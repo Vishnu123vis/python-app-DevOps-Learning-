@@ -9,6 +9,7 @@ on:
 
 jobs:
   ci:
+
     runs-on: ubuntu-latest
     steps:
       - name: shorten commit id
@@ -25,11 +26,33 @@ jobs:
         with:
           push: true
           tags: vishnu123vis/python-app:${{ env.COMMIT_ID }}
+    outputs:
+      commit_id: ${{ env.COMMIT_ID }}
   
   cd:
     needs: ci
     runs-on: self-hosted
     steps:
+    
+     - uses: actions/checkout@v3
+
+     - name: modify values filesx
+        shell: bash
+        run: |
+          echo ${{ needs.ci.outputs.commit_id }}
+          if ! command -v yq &> /dev/null; then
+            curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -o /tmp/yq
+            chmod +x /tmp/yq
+            sudo mv /tmp/yq /usr/local/bin/yq 2>/dev/null || mv /tmp/yq /usr/local/bin/yq
+          fi
+          yq -i ".image.tag = \"${{ needs.ci.outputs.commit_id }}\"" charts/python-app/values.yaml
+          yq -i ".image.tag = \"${{ needs.ci.outputs.commit_id }}\"" charts/argocd/values-argo.yaml
+
+      - name: Commit changes
+        uses: Endbug/add-and-commmit@v9
+        with:
+          message: "Update image tag to ${{ needs.ci.outputs.commit_id }}"
+
       - name: install argocd
         shell: bash
         run: |
